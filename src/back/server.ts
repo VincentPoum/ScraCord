@@ -2,6 +2,7 @@
 import express from "express";
 import compression from "compression";
 import { createServer } from "http";
+import * as ioLib from "socket.io";
 
 export function expressServer() {
     const app = express();
@@ -14,10 +15,14 @@ export function expressServer() {
     const server = createServer(app);
     server.listen(port, () => console.log(`🚀 Surfy for iot ready with https on port ${port}!`));
 
-    // app.get('*', function (req, res) {
-    //     const r = resolve('dist/front/index.html');
-    //     res.sendFile(r);
-    // });
+    const io = new ioLib.Server(server);
+
+    io.on("connection", (socket) => {
+        console.log("socket.io".blue, "a user connected", socket.id);
+        socket.on("disconnect", () => {
+            console.log("socket.io".blue, "a user disconnected", socket.id);
+        });
+    });
 
     app.get('/', (req, res) => {
         res.end(true);

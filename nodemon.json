@@ -2,7 +2,6 @@
     "watch": "dist/back/server.js",
     "ignore": [
         "node_modules",
-        "dist/front/",
-        "dist/back/"
+        "dist/front/"
     ]
 }

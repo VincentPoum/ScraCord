@@ -46,5 +46,5 @@ const back = {
     }
 };
 
-// module.exports = [back, front];
-module.exports = back;
+module.exports = [back, front];
+// module.exports = back;

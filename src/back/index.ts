@@ -1,9 +1,5 @@
-// import colors from "colors";
-// colors.setTheme({
-//     info: "green"
-// });
+import "colors";
 
 import { expressServer } from "./server";
-
 
 expressServer();
