@@ -7,7 +7,7 @@ const front = {
     mode: 'development',
     output: {
         path: path.resolve(__dirname, 'dist/front'),
-        filename: 'bundle.js'
+        filename: 'index.js'
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -33,15 +33,18 @@ const back = {
     mode: 'development',
     output: {
         path: path.resolve(__dirname, 'dist/back/'),
-        filename: 'bundle.js'
+        filename: 'server.js'
     },
+    target: 'node',
+    resolve: { extensions: [".ts", ".js", ".json"] },
     module: {
         rules: [{
-            test: /\.(js|mjs|ts|tsx|jsx)?$/,
+            test: /\.(js|mjs|ts)?$/,
             exclude: /(node_modules|bower_components)/,
             loader: "babel-loader"
         }]
     }
 };
 
-module.exports = [back, front];
+// module.exports = [back, front];
+module.exports = back;

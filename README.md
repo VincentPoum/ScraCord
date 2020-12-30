@@ -1,4 +1,7 @@
+npm install -g nodemon
+
+
 yarn
 yarn dev
 
-node dist/back/bundle.js
+nodemon dist/back/server.js
