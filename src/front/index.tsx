@@ -16,9 +16,7 @@ function Application() {
 
     const [a, setA] = React.useState<number>(0);
     React.useEffect(() => {
-        socket.emit('add', 1, (r => {
-            setA(r);
-        }))
+        socket.emit('add', 1, setA);
     }, [])
 
 
