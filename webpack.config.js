@@ -9,6 +9,7 @@ const front = {
         path: path.resolve(__dirname, 'dist/front'),
         filename: 'index.js'
     },
+    resolve: { extensions: [".ts", ".tsx", ".js", ".json"] },
     plugins: [
         new HtmlWebpackPlugin({
             inject: true,

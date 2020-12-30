@@ -3,6 +3,7 @@ import express from "express";
 import compression from "compression";
 import { createServer } from "http";
 import * as ioLib from "socket.io";
+import { IC } from "../common/models";
 
 export function expressServer() {
     const app = express();
@@ -17,13 +18,16 @@ export function expressServer() {
 
     const io = new ioLib.Server(server);
 
+
     io.on("connection", (socket) => {
         console.log("socket.io".blue, "a user connected", socket.id);
         socket.on("disconnect", () => {
             console.log("socket.io".blue, "a user disconnected", socket.id);
         });
-        socket.on("add", (a: number, cb: (a: number) => void) => {
-            return cb(a + 1);
+
+
+        socket.on("add", (c: IC, cb: (c: IC) => void) => {
+            return cb(addWithSocketServer(c));
         })
     });
 
@@ -31,3 +35,21 @@ export function expressServer() {
         res.end(true);
     })
 }
+
+function addWithSocketServer(c: IC): IC {
+    return { ...c, n: c.n + 1 };
+}
+
+
+// const list = [addWithSocketServer];
+
+
+// function controledSocket(key: SocketMethods){
+//     socket.on(key, (c: IC, cb: (c: IC) => void) => {
+//         return cb(addWithSocketServer(c));
+//     })
+// }
+
+// type SocketMethods = 'addWithSocketServer' | 'b3' | 'c5';
+
+// const a: SocketMethods[] = ['addWithSocketServer', 'b3']
