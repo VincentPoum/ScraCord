@@ -9,9 +9,19 @@ ReactDOM.render(
     document.getElementById("root")
 );
 
-function Application() {
-    return <div>SCRABBY !</div>
-}
-
 const socket = ioLib.io();
 socket.connect();
+
+function Application() {
+
+    const [a, setA] = React.useState<number>(0);
+    React.useEffect(() => {
+        socket.emit('add', 1, (r => {
+            setA(r);
+        }))
+    }, [])
+
+
+    return <div>SCRABBY ! ({a})</div>
+}
+

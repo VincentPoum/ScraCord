@@ -1,7 +1,0 @@
-{
-    "watch": "dist/back/server.js",
-    "ignore": [
-        "node_modules",
-        "dist/front/"
-    ]
-}

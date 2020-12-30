@@ -22,6 +22,9 @@ export function expressServer() {
         socket.on("disconnect", () => {
             console.log("socket.io".blue, "a user disconnected", socket.id);
         });
+        socket.on("add", (a: number, cb: (a: number) => void) => {
+            return cb(a + 1);
+        })
     });
 
     app.get('/', (req, res) => {
