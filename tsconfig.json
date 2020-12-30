@@ -1,0 +1,44 @@
+{
+    "compilerOptions": {
+        "target": "es2019",
+        "module": "esnext",
+        "outDir": "dist",
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "declaration": false,
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "typeRoots": [
+            "types",
+            "node_modules/@types"
+        ],
+        "jsx": "react",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "alwaysStrict": true,
+        "strictNullChecks": true,
+        "noUnusedLocals": true,
+        "allowJs": false,
+        "sourceRoot": "./src/",
+        "skipLibCheck": true,
+        "lib": [
+            "webworker",
+            "es6",
+            "dom",
+            "esnext",
+            "scripthost"
+        ],
+        "types": [
+            "node",
+            "jest"
+        ]
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.tsx"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}
