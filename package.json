@@ -1,0 +1,33 @@
+{
+  "name": "scrabble",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "pouya mohtacham <pouyajoon@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "front:dev": "./node_modules/.bin/webpack --config=./webpack.config.js --watch"
+  },
+  "dependencies": {
+    "@babel/core": "7.12.10",
+    "@babel/plugin-proposal-class-properties": "7.12.1",
+    "@babel/plugin-transform-runtime": "7.12.10",
+    "@babel/preset-env": "7.12.11",
+    "@babel/preset-react": "7.12.10",
+    "@babel/preset-typescript": "7.12.7",
+    "babel-core": "6.26.3",
+    "babel-loader": "8.2.2",
+    "babel-plugin-import": "1.13.3",
+    "colors": "1.4.0",
+    "html-webpack-plugin": "4.5.0",
+    "node": "15.4.0",
+    "pug": "3.0.0",
+    "pug-loader": "2.4.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "webpack": "5.11.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "4.3.0",
+    "webpack-dev-server": "3.11.1"
+  }
+}
