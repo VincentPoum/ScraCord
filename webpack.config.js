@@ -9,7 +9,13 @@ const front = {
         path: path.resolve(__dirname, 'dist/front'),
         filename: 'index.js'
     },
-    resolve: { extensions: [".ts", ".tsx", ".js", ".json"] },
+    resolve: {
+        extensions: [".ts", ".tsx", ".js", ".json"],
+        alias: {
+            // You can add comment "Please do not delete this file" in this file
+            modernizr$: path.resolve(__dirname, "empty-alias-file.js")
+        }
+    },
     plugins: [
         new HtmlWebpackPlugin({
             inject: true,
@@ -25,6 +31,20 @@ const front = {
             test: /\.(js|mjs|ts|tsx|jsx)?$/,
             exclude: /(node_modules|bower_components)/,
             loader: "babel-loader"
+        }, {
+            loader: "webpack-modernizr-loader",
+            options: {
+                // Full list of supported options can be found in [config-all.json](https://github.com/Modernizr/Modernizr/blob/master/lib/config-all.json).
+                options: ["setClasses"],
+                "feature-detects": [
+                    "test/css/flexbox",
+                    "test/es6/promises",
+                    "test/serviceworker"
+                ]
+                // Uncomment this when you use `JSON` format for configuration
+                // type: 'javascript/auto'
+            },
+            test: /empty-alias-file\.js$/
         }]
     }
 };
@@ -49,3 +69,4 @@ const back = {
 
 module.exports = [back, front];
 // module.exports = back;
+// module.exports = front;
