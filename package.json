@@ -5,6 +5,8 @@
   "author": "pouya mohtacham <pouyajoon@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "build": "./node_modules/.bin/webpack --config=./webpack.config.js --mode=production",
+    "start": "node dist/back/server.js",
     "dev": "./node_modules/.bin/webpack --config=./webpack.config.js --watch"
   },
   "dependencies": {
