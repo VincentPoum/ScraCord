@@ -27,9 +27,9 @@ export function BoardRouter() {
 const caseSize = 20;
 export function Board(props: { board: IBoard }) {
     const { board } = props;
-    const backend = modernizr.touchevents ? TouchBackend : HTML5Backend;
+    const backend = modernizr.deviceorientation ? TouchBackend : HTML5Backend;
     return <div>
-        <div>touch:{modernizr.touchevents}</div>
+        <div>touch:{modernizr.deviceorientation}</div>
         <DndProvider backend={backend}>
             <div style={{ display: 'flex', flexWrap: 'wrap', width: (caseSize + 2) * board.size + board.size }}>{board.cases.map((c, i) => <Case boardId={board.id} key={i} value={c} />)}</div>
             <Letter letter="A" />
