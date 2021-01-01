@@ -9,13 +9,14 @@ import { currentUserAtom } from "../Components/Login";
 import { TouchBackend } from 'react-dnd-touch-backend'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
-const modernizr: { touch: boolean } = (window as any).Modernizr;
+
 
 const boards = atomFamily<IBoard | undefined, number>({
     key: 'boards',
     default: undefined
 })
 export function BoardRouter() {
+
     const { id: idString } = useParams();
     const id = parseInt(idString, 10);
     const [board, setBoard] = useRecoilState(boards(id));
@@ -28,9 +29,11 @@ export function BoardRouter() {
 const caseSize = 20;
 export function Board(props: { board: IBoard }) {
     const { board } = props;
+    const modernizr: { touch: boolean } = (window as any).Modernizr;
+    console.log(modernizr);
     const backend = modernizr.touch ? TouchBackend : HTML5Backend;
     return <div>
-        <div>touch:{modernizr.touch}</div>
+        <div>touch:{modernizr.touch ? 'TOUCH' : 'NOT TOUCH'}</div>
         <DndProvider backend={backend}>
             <div style={{ display: 'flex', flexWrap: 'wrap', width: (caseSize + 2) * board.size + board.size }}>{board.cases.map((c, i) => <Case boardId={board.id} key={i} value={c} />)}</div>
             <Letter letter="A" />
