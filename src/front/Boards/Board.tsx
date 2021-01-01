@@ -24,7 +24,6 @@ export function BoardRouter() {
     return board ? <Board board={board} /> : <Loader />;
 }
 
-
 const caseSize = 20;
 export function Board(props: { board: IBoard }) {
     const { board } = props;

@@ -6,6 +6,9 @@ import { IAddLetterToCase } from '../../common/sockets/models';
 export const socket = ioLib.io();
 socket.connect();
 
+var appCache = window.applicationCache;
+appCache.update();
+
 export function createNewBoard(creator: IUser) {
     return new Promise(r => {
         socket.emit('createNewBoard', creator, (board: IBoard) => {
