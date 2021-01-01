@@ -20,6 +20,8 @@ const front = {
     plugins: [
         new HtmlWebpackPlugin({
             inject: true,
+            cache: true,
+            hash: true,
             filename: "index.html",
             template: 'src/templates/index.pug'
         }),
