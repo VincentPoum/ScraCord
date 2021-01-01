@@ -10,6 +10,7 @@ export function Home() {
     }
     return <div>
         <div>Salut {user?.name} <button onClick={() => { setUser(undefined) }}>déconnecter</button></div>
+        <hr />
         <BoardList currentUser={user} />
     </div>
 }
