@@ -4,11 +4,11 @@ import { Loader } from "../Components/Loader";
 import { addLetterToCase, getBoard } from "../WebSockets/webSocket";
 import { IBoard, ICase, LetterType, ICaseType } from "../../common/game.models";
 import { DndProvider, useDrag, useDrop } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
 import { atomFamily, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { currentUserAtom } from "../Components/Login";
-// import { HTML5Backend } from 'react-dnd-html5-backend'
-
+import { TouchBackend } from 'react-dnd-touch-backend'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import * as modernizr from 'modernizr';
 
 const boards = atomFamily<IBoard | undefined, number>({
     key: 'boards',
@@ -28,8 +28,9 @@ export function BoardRouter() {
 const caseSize = 24;
 export function Board(props: { board: IBoard }) {
     const { board } = props;
+    const backend = modernizr.touchevents ? TouchBackend : HTML5Backend;
     return <div>
-        <DndProvider backend={HTML5Backend}>
+        <DndProvider backend={backend}>
             <div style={{ display: 'flex', flexWrap: 'wrap', width: (caseSize + 2) * board.size }}>{board.cases.map((c, i) => <Case boardId={board.id} key={i} value={c} />)}</div>
             <Letter letter="A" />
         </DndProvider>
