@@ -3,9 +3,14 @@ import express from "express";
 import compression from "compression";
 import { createServer } from "http";
 import * as ioLib from "socket.io";
-import { IC } from "../common/models";
+import { addNewBoardToGame } from "../common/game";
+import { getMyBoards } from "../common/board";
+import { users } from "../common/users/users";
+import { IBoard, IGame } from "../common/game.models";
+import { IAddLetterToCase } from "../common/sockets/models";
+import { addLetterToCase } from "./Game/board";
 
-export function expressServer() {
+export function expressServer(game: IGame) {
     const app = express();
     app.use(express.static('dist/front', { maxAge: 0 }));
     app.use(express.urlencoded({ extended: true }));
@@ -25,10 +30,30 @@ export function expressServer() {
             console.log("socket.io".blue, "a user disconnected", socket.id);
         });
 
-
-        socket.on("add", (c: IC, cb: (c: IC) => void) => {
-            return cb(addWithSocketServer(c));
+        socket.on("createNewBoard", (creator: IUser, cb: (c: IBoard) => void) => {
+            const board = addNewBoardToGame(game, creator);
+            return cb(board);
         })
+
+        socket.on("getMyBoards", (user: IUser, cb: (boards: IBoard[]) => void) => {
+            cb(getMyBoards(game, user));
+        });
+
+        socket.on("getUser", (userId: number, cb: (user?: IUser) => void) => {
+            cb(users.find(({ id }) => userId === id));
+        });
+
+        socket.on("getBoard", (boardId: number, cb: (board?: IBoard) => void) => {
+            cb(game.boards.find(({ id }) => boardId === id));
+        });
+
+        socket.on('addLetterToCase', async (data: IAddLetterToCase, cb: (board: IBoard) => void) => {
+            const board = await addLetterToCase(game, data);
+            if (board) {
+                cb(board);
+            }
+        })
+
     });
 
     app.get('/', (req, res) => {
@@ -36,20 +61,3 @@ export function expressServer() {
     })
 }
 
-function addWithSocketServer(c: IC): IC {
-    return { ...c, n: c.n + 1 };
-}
-
-
-// const list = [addWithSocketServer];
-
-
-// function controledSocket(key: SocketMethods){
-//     socket.on(key, (c: IC, cb: (c: IC) => void) => {
-//         return cb(addWithSocketServer(c));
-//     })
-// }
-
-// type SocketMethods = 'addWithSocketServer' | 'b3' | 'c5';
-
-// const a: SocketMethods[] = ['addWithSocketServer', 'b3']
