@@ -637,19 +637,23 @@
                 },
                 {
                     "type": "letter",
-                    "index": 158
+                    "index": 158,
+                    "letter": "H"
                 },
                 {
                     "type": "letter",
-                    "index": 159
+                    "index": 159,
+                    "letter": "K"
                 },
                 {
                     "type": "letter",
-                    "index": 160
+                    "index": 160,
+                    "letter": "J"
                 },
                 {
                     "type": "letter",
-                    "index": 161
+                    "index": 161,
+                    "letter": "H"
                 },
                 {
                     "type": "letter",
