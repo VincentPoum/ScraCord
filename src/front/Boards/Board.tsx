@@ -9,7 +9,7 @@ import { currentUserAtom } from "../Components/Login";
 import { TouchBackend } from 'react-dnd-touch-backend'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
-let modernizr: { touchevents: boolean };
+const modernizr: { touch: boolean } = (window as any).Modernizr;
 
 const boards = atomFamily<IBoard | undefined, number>({
     key: 'boards',
@@ -28,9 +28,9 @@ export function BoardRouter() {
 const caseSize = 20;
 export function Board(props: { board: IBoard }) {
     const { board } = props;
-    const backend = modernizr.deviceorientation ? TouchBackend : HTML5Backend;
+    const backend = modernizr.touch ? TouchBackend : HTML5Backend;
     return <div>
-        <div>touch:{modernizr.deviceorientation}</div>
+        <div>touch:{modernizr.touch}</div>
         <DndProvider backend={backend}>
             <div style={{ display: 'flex', flexWrap: 'wrap', width: (caseSize + 2) * board.size + board.size }}>{board.cases.map((c, i) => <Case boardId={board.id} key={i} value={c} />)}</div>
             <Letter letter="A" />
