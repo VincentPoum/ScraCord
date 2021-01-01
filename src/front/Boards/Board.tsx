@@ -8,7 +8,8 @@ import { atomFamily, useRecoilState, useRecoilValue, useSetRecoilState } from "r
 import { currentUserAtom } from "../Components/Login";
 import { TouchBackend } from 'react-dnd-touch-backend'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import * as modernizr from 'modernizr';
+
+let modernizr: { touchevents: boolean };
 
 const boards = atomFamily<IBoard | undefined, number>({
     key: 'boards',
