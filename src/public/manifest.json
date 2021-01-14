@@ -1,0 +1,15 @@
+{
+    "background_color": "white",
+    "description": "scrabble",
+    "display": "fullscreen",
+    "icons": [
+        {
+            "src": "icon/icon.jpeg",
+            "sizes": "1024x1024",
+            "type": "image/jpeg"
+        }
+    ],
+    "name": "Scracord",
+    "short_name": "Scracord",
+    "start_url": "/index.html"
+}

@@ -4,7 +4,6 @@ import compression from "compression";
 import { createServer } from "http";
 import * as ioLib from "socket.io";
 import { addNewBoardToGame } from "../common/game";
-import { getMyBoards } from "../common/board";
 import { users } from "../common/users/users";
 import { IBoard, IGame } from "../common/game.models";
 import { IAddLetterToCase } from "../common/sockets/models";
@@ -36,7 +35,8 @@ export function expressServer(game: IGame) {
         })
 
         socket.on("getMyBoards", (user: IUser, cb: (boards: IBoard[]) => void) => {
-            cb(getMyBoards(game, user));
+            // cb(getMyBoards(game, user));
+            cb(game.boards);
         });
 
         socket.on("getUser", (userId: number, cb: (user?: IUser) => void) => {

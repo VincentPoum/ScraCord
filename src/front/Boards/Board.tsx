@@ -4,10 +4,11 @@ import { Loader } from "../Components/Loader";
 import { addLetterToCase, getBoard } from "../WebSockets/webSocket";
 import { IBoard, ICase, LetterType, ICaseType } from "../../common/game.models";
 import { DndProvider, useDrag, useDrop } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
 import { atomFamily, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { currentUserAtom } from "../Components/Login";
-// import { HTML5Backend } from 'react-dnd-html5-backend'
+import { TouchBackend } from 'react-dnd-touch-backend'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+
 
 
 const boards = atomFamily<IBoard | undefined, number>({
@@ -15,6 +16,7 @@ const boards = atomFamily<IBoard | undefined, number>({
     default: undefined
 })
 export function BoardRouter() {
+
     const { id: idString } = useParams();
     const id = parseInt(idString, 10);
     const [board, setBoard] = useRecoilState(boards(id));
@@ -24,17 +26,21 @@ export function BoardRouter() {
     return board ? <Board board={board} /> : <Loader />;
 }
 
-
-const caseSize = 24;
+const caseSize = 20;
+const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 export function Board(props: { board: IBoard }) {
     const { board } = props;
+    const modernizr: { touch: boolean } = (window as any).Modernizr;
+    const backend = modernizr.touch ? TouchBackend : HTML5Backend;
     return <div>
-        <DndProvider backend={HTML5Backend}>
-            <div style={{ display: 'flex', flexWrap: 'wrap', width: (caseSize + 2) * board.size }}>{board.cases.map((c, i) => <Case boardId={board.id} key={i} value={c} />)}</div>
-            <Letter letter="A" />
+        <DndProvider backend={backend}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', width: (caseSize + 2) * board.size + board.size }}>{board.cases.map((c, i) => <Case boardId={board.id} key={i} value={c} />)}</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', width: (caseSize + 2) * board.size + board.size }}>{letters.map(l => <Letter key={`letter-${l}`} letter={l} />)}</div>
         </DndProvider>
     </div>
 }
+
+
 
 type DropType = 'NOTHING' | 'LETTER';
 
@@ -73,16 +79,16 @@ function Case(props: { value: ICase, boardId: number }) {
 
 function Letter(props: { letter: LetterType }) {
     const { letter } = props;
-    const [{ isDragging, fontSize }, dragRef] = useDrag({
+    const [{ fontSize }, dragRef] = useDrag({
         item: { type: 'LETTER', letter },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
             fontSize: monitor.isDragging() ? 24 : 14
         })
     })
-    if (isDragging) {
-        return <div ref={dragRef} />
-    }
+    // if (isDragging) {
+    //     return <div ref={dragRef} />
+    // }
     return <div ref={dragRef} style={{
         fontSize: fontSize,
         cursor: 'pointer',

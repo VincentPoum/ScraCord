@@ -6,10 +6,10 @@ import { BoardRouter } from "../Boards/Board";
 const routerHistory = createBrowserHistory();
 
 export function ApplicationRouter() {
-    return <HashRouter history={routerHistory}>
+    return <div style={{ margin: 8 }}><HashRouter history={routerHistory}>
         <Switch>
             <Route path="/boards/:id" component={BoardRouter} />
             <Route path="/" component={Home} />
         </Switch>
-    </HashRouter>
+    </HashRouter></div>
 }
